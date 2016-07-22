@@ -1,7 +1,10 @@
 package org.letsplaywaves.www.maptest;
 
-import android.support.v4.app.FragmentActivity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.FragmentActivity;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -9,6 +12,11 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Marker;
+import android.util.Log;
+
+import static com.google.android.gms.maps.GoogleMap.*;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -47,46 +55,126 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng L4 = new LatLng(44.804249, -91.503222);
         LatLng L5 = new LatLng(44.806213, -91.505368);
         LatLng L6 = new LatLng(44.799727, -91.495476);
+        LatLng L7 = new LatLng(44.805367, -91.510235);
+        LatLng L8 = new LatLng(44.796954, -91.499661);
+
         mMap.addMarker(new MarkerOptions()
                 .position(EC)
-                .title("Uno")
+                .title("Cache-memory clear")
+                .snippet("Click and drage some markers around")
                 .draggable(true)
-                .alpha(.7f);
-                //.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_AZURE)))
+                .showInfoWindow();
+        //mMap.setOnMarkerClickListener(new OnMarkerClickListener(){
+        //        @Override
+        //        public boolean onMarkerClick(Marker marker) {
+        //        marker.setVisible(false);
+        //        Toast.makeText(getApplicationContext(),"You clicked her",Toast.LENGTH_LONG).show();
+        //        return false;
+        //    }
+        //});
+        mMap.setOnMarkerDragListener(new OnMarkerDragListener() {
+            @Override
+            public void onMarkerDragStart(Marker marker){
+                Log.d("Drag","Drag Started Fam");
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+                Log.d("Drag","Drag Dragging Fam");
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+                Log.d("Drag","Drag Ended Hopefully");
+
+                LatLng latLng = marker.getPosition();
+                Double latitude = latLng.latitude;
+                Double longitude = latLng.longitude;
+                Toast.makeText(getApplicationContext(),"Latitude : "+latitude+"\nLongitude : "+longitude,Toast.LENGTH_LONG).show();
+            }
+        });
         mMap.addMarker(new MarkerOptions()
                 .position(L)
-                .title("Dos")
+                .title("Memory Fading")
+                .snippet("wut")
                 .draggable(true)
-                .alpha(.3f));
+                .alpha(.3f)
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_GREEN)));
+
         mMap.addMarker(new MarkerOptions()
                 .position(L2)
-                .title("Tres")
+                .title("Nostalgia circa 2011-2012")
+                .snippet("exercise the daemons")
                 .draggable(true)
-                .alpha(.4f));
+                .alpha(.4f)
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_ROSE)));
         mMap.addMarker(new MarkerOptions()
                 .position(L3)
-                .title("I can't")
+                .title("Nearly Blocked")
+                .snippet("exercise the daemons")
                 .draggable(true)
-                .alpha(.1f));
+                .alpha(.1f)
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_RED)));
         mMap.addMarker(new MarkerOptions()
                 .position(L4)
-                .title("speak")
+                .title("Started to Slide")
+                .snippet("stop being melodramatic")
                 .draggable(true)
-                .alpha(.9f));
+                .alpha(.6f)
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_GREEN)));
         mMap.addMarker(new MarkerOptions()
                 .position(L5)
-                .title("the spainish")
+                .title("Slowly faded")
+                .snippet("I get weird when I code")
                 .draggable(true)
-                .alpha(.7f));
+                .alpha(.5f)
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_MAGENTA)));
         mMap.addMarker(new MarkerOptions()
                 .position(L6)
-                .title("here's a marker")
+                .title("Dominance Asserted")
+                .snippet("I get weird when I code")
                 .draggable(true)
-                .alpha(.2f));
+                .alpha(.69f)
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_RED)));
+
+        mMap.addMarker(new MarkerOptions()
+                .position(L7)
+                .title("Almost forgotten")
+                .snippet("You're insane")
+                .draggable(true)
+                .alpha(.1f)
+                .icon(BitmapDescriptorFactory.defaultMarker(
+                        BitmapDescriptorFactory.HUE_VIOLET)));
+
+        mMap.addMarker(new MarkerOptions()
+                .position(L8)
+                .title("GAC")
+                .snippet("Stop being so melodramatic")
+                .draggable(true)
+                .anchor(0.5f, 0.5f)
+                .rotation(180.0f));
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(EC));
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
         mMap.setMyLocationEnabled(true);
-        mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+        mMap.setMapType(MAP_TYPE_TERRAIN);
 
     }
 }
