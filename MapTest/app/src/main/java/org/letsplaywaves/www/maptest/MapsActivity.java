@@ -14,6 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.PolygonOptions;
 import android.util.Log;
 
 import static com.google.android.gms.maps.GoogleMap.*;
@@ -58,6 +59,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng L7 = new LatLng(44.805367, -91.510235);
         LatLng L8 = new LatLng(44.796954, -91.499661);
 
+        //build a box
+        final LatLng NW = new LatLng(44.807780, -91.521275);
+        final LatLng NE = new LatLng(44.809941, -91.491192);
+        final LatLng SE = new LatLng(44.792554, -91.489003);
+        final LatLng SW = new LatLng(44.790727, -91.521232);
+
+        //draw a polygon around EC
+        PolygonOptions polygonOptions = new  PolygonOptions().add(NW).add(NE).add(SE).add(SW);
+        mMap.addPolygon(polygonOptions);
+
+        //make the first marker draggable and stay open
         mMap.addMarker(new MarkerOptions()
                 .position(EC)
                 .title("Cache-memory clear")
@@ -95,6 +107,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(getApplicationContext(),"Latitude : "+latitude+"\nLongitude : "+longitude,Toast.LENGTH_LONG).show();
             }
         });
+
+        //draw the markers, play with the colors
         mMap.addMarker(new MarkerOptions()
                 .position(L)
                 .title("Memory Fading")
