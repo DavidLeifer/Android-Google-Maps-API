@@ -9,14 +9,17 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 
 public class MapsActivity extends Activity implements OnMapReadyCallback {
 
     static final LatLng UWEC= new LatLng(44.798363, -91.501223);
     static final LatLng dave = new LatLng(44.802147, -91.509752);
+    static final LatLng MADRID = new LatLng(40.4378271,-3.6795367);
 
 
     @Override
@@ -32,6 +35,8 @@ public class MapsActivity extends Activity implements OnMapReadyCallback {
 
         map.addMarker(new MarkerOptions().position(UWEC).title("UWEC").snippet("Hi chief, best 4-5 years of your life !"));
         map.addMarker(new MarkerOptions().position(dave).title("dave").snippet("This isn't where I live !"));
+
+        GroundOverlayOptions groundOverlayOptions = new GroundOverlayOptions().image(BitmapDescriptorFactory.fromResource(R.drawable.android)).position(MADRID,200f,200f);
 
         map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
             @Override
