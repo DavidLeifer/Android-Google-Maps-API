@@ -192,5 +192,3 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 }
-
-//Fuckthesystem123
