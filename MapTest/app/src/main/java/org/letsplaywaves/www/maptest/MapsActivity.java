@@ -147,8 +147,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mMap.addMarker(new MarkerOptions()
                 .position(L7)
-                .title("Almost forgotten")
-                .snippet("You're insane")
+                .title("506 whadup")
+                .snippet("Schoolhouse status")
                 .draggable(true)
                 .alpha(.1f)
                 .icon(BitmapDescriptorFactory.defaultMarker(
@@ -178,3 +178,5 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 }
+
+//Fuckthesystem123
